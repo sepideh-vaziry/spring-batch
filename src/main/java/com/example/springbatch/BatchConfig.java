@@ -31,7 +31,7 @@ public class BatchConfig {
     reader.setLinesToSkip(1);
     reader.setLineMapper(new DefaultLineMapper<>() {{
       setLineTokenizer(new DelimitedLineTokenizer() {{
-        setNames("name", "age", "email");
+        setNames("id", "name", "price");
       }});
       setFieldSetMapper(fieldSet -> Product.builder()
           .id(fieldSet.readLong("id"))
@@ -63,9 +63,9 @@ public class BatchConfig {
   }
 
   @Bean
-  public Job importProductJob(JobRepository jobRepository, Step importUserStep) {
+  public Job importProductJob(JobRepository jobRepository, Step importProductStep) {
     return new JobBuilder("importProductJob", jobRepository)
-        .start(importUserStep)
+        .start(importProductStep)
         .build();
   }
 
